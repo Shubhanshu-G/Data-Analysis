@@ -11,14 +11,18 @@ st.set_page_config(
 
 st.title("Expolatory Data Analysis of our Synthetic dataset")
 
+import os
+
 @st.cache_data   ## Our decorator store it in cache memory and delte it if the code terminated 
 ## At every run it relocates itself by dismantling the old one 
 def load_data():
     try:
-        return pd.read_csv("Cleaned_dataset.csv")
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        csv_path = os.path.join(current_dir, "Cleaned_dataset.csv")
+        return pd.read_csv(csv_path)
     except FileNotFoundError:
         st.error("Dataset is not available.")
-        return pd.DataFrame
+        return pd.DataFrame()
 # st.write("This is our dataset.")     ## Here we can not use this because it eill make it slower 
 # df = pd.read_csv("Cleaned_dataset.csv")
 # st.write(df)
