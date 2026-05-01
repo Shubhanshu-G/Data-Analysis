@@ -47,6 +47,7 @@ Explores a large-scale AI prompt quality dataset to uncover patterns in **qualit
 | | |
 |---|---|
 | 📁 Folder | [`Prompt evaluation/`](./Prompt%20evaluation/) |
+| 🔗 Live App | [promptevaluation.streamlit.app](https://promptevaluation.streamlit.app) |
 | 📓 Notebook | `EDA.ipynb` |
 | 🖥️ Dashboard | `app1.py` |
 
