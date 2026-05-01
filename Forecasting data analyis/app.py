@@ -1,6 +1,10 @@
 import streamlit as st
 import pandas as pd
+from pathlib import Path
 from stream_utils import load_data, get_rp_table
+
+# Base directory — works locally and on Streamlit Cloud
+BASE_DIR = Path(__file__).parent
 
 # ----------------------------------------------------
 # 1. PAGE CONFIGURATION
@@ -66,16 +70,16 @@ if data_loaded:
             st.pyplot(plot_hourly_profile(df), use_container_width=True)
             
         st.markdown("### Representative Shift (2014 vs 2025)")
-        st.image("Plots/fig_Y_final.png", caption="Representative Daily Net Load Profiles (2014 vs 2025)", use_container_width=True)
+        st.image(str(BASE_DIR / "Plots/fig_Y_final.png"), caption="Representative Daily Net Load Profiles (2014 vs 2025)", use_container_width=True)
             
     with tab2:
         st.subheader("Renewable Penetration (RP) Impact")
         
         col_a, col_b = st.columns(2)
         with col_a:
-            st.image("Plots/fig_RP_trend.png", caption="Annual Average Renewable Penetration in PJM (2014–2025)", use_container_width=True)
+            st.image(str(BASE_DIR / "Plots/fig_RP_trend.png"), caption="Annual Average Renewable Penetration in PJM (2014–2025)", use_container_width=True)
         with col_b:
-            st.image("Plots/fig6_final.png", caption="Renewable Penetration Regime Segmentation", use_container_width=True)
+            st.image(str(BASE_DIR / "Plots/fig6_final.png"), caption="Renewable Penetration Regime Segmentation", use_container_width=True)
         
         st.markdown("### Projected Renewable Penetration Scenarios (2014-2025)")
         rp_table = get_rp_table()
@@ -89,19 +93,19 @@ if data_loaded:
         xgb_table = get_xgboost_rp_impact_table()
         st.dataframe(xgb_table, use_container_width=True)
         
-        st.image("Plots/fig7_final.png", caption="Actual vs Predicted Net Load (1-Hour Ahead)", use_container_width=True)
+        st.image(str(BASE_DIR / "Plots/fig7_final.png"), caption="Actual vs Predicted Net Load (1-Hour Ahead)", use_container_width=True)
         
         col_c, col_d = st.columns(2)
         with col_c:
-            st.image("Plots/fig11_feature_importance_final.png", caption="XGBoost Feature Importance", use_container_width=True)
+            st.image(str(BASE_DIR / "Plots/fig11_feature_importance_final.png"), caption="XGBoost Feature Importance", use_container_width=True)
         with col_d:
-            st.image("Plots/fig9_final.png", caption="NRMSE vs Forecast Horizon", use_container_width=True)
+            st.image(str(BASE_DIR / "Plots/fig9_final.png"), caption="NRMSE vs Forecast Horizon", use_container_width=True)
             
         col_e, col_f = st.columns(2)
         with col_e:
-            st.image("Plots/fig10_boxplot.png", caption="Forecast Error Distribution by RP Regime", use_container_width=True)
+            st.image(str(BASE_DIR / "Plots/fig10_boxplot.png"), caption="Forecast Error Distribution by RP Regime", use_container_width=True)
         with col_f:
-            st.image("Plots/fig8_final_with_legend.png", caption="Diebold–Mariano Loss Differential Distribution", use_container_width=True)
+            st.image(str(BASE_DIR / "Plots/fig8_final_with_legend.png"), caption="Diebold–Mariano Loss Differential Distribution", use_container_width=True)
         
     with tab4:
         st.subheader("Final Combined Dataset")
@@ -111,7 +115,7 @@ if data_loaded:
         st.dataframe(df.head(1000), use_container_width=True)
         
         # Download button
-        with open("combined_preprocessed_dataset.csv", "rb") as file:
+        with open(BASE_DIR / "combined_preprocessed_dataset.csv", "rb") as file:
             btn = st.download_button(
                 label="Download Full Dataset",
                 data=file,

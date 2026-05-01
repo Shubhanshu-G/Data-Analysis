@@ -3,10 +3,13 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 import streamlit as st
+from pathlib import Path
+
+BASE_DIR = Path(__file__).parent
 
 @st.cache_data
 def load_data():
-    df = pd.read_csv("combined_preprocessed_dataset.csv")
+    df = pd.read_csv(BASE_DIR / "combined_preprocessed_dataset.csv")
     df['timestamp'] = pd.to_datetime(df['timestamp'])
     df = df.set_index('timestamp')
     return df
