@@ -15,13 +15,13 @@ jobs:
       - name: Ping PJM Netload Forecasting App
         run: |
           echo "Pinging PJM Netload app..."
-          curl -L --max-time 60 -s -o /dev/null -w "HTTP Status: %{http_code}\n" https://pjmrtoanalysis.streamlit.app/
+          curl --max-redirs 10 --max-time 60 -s -o /dev/null -w "HTTP Status: %{http_code}\n" https://pjmrtoanalysis.streamlit.app/
         continue-on-error: true
 
       - name: Ping Prompt Analysis App
         run: |
           echo "Pinging Prompt Analysis app..."
-          curl -L --max-time 60 -s -o /dev/null -w "HTTP Status: %{http_code}\n" https://promptevaluation.streamlit.app/
+          curl --max-redirs 10 --max-time 60 -s -o /dev/null -w "HTTP Status: %{http_code}\n" https://promptevaluation.streamlit.app/
         continue-on-error: true
 
       - name: Done
