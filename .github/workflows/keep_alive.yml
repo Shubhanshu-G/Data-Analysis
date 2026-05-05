@@ -1,0 +1,28 @@
+name: Keep Streamlit Apps Alive
+
+on:
+  schedule:
+    # Runs every 30 minutes
+    - cron: '*/30 * * * *'
+  # Allows you to trigger this manually from the GitHub Actions tab
+  workflow_dispatch:
+
+jobs:
+  keep_alive:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Ping PJM Netload Forecasting App
+        run: |
+          echo "Pinging PJM Netload app..."
+          curl -L --max-time 60 -s -o /dev/null -w "HTTP Status: %{http_code}\n" https://pjmrtoanalysis.streamlit.app/
+        continue-on-error: true
+
+      - name: Ping Prompt Analysis App
+        run: |
+          echo "Pinging Prompt Analysis app..."
+          curl -L --max-time 60 -s -o /dev/null -w "HTTP Status: %{http_code}\n" https://promptevaluation.streamlit.app/
+        continue-on-error: true
+
+      - name: Done
+        run: echo "✅ Both apps pinged successfully at $(date)"
