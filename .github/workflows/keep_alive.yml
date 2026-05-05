@@ -2,9 +2,7 @@ name: Keep Streamlit Apps Alive
 
 on:
   schedule:
-    # Runs every 30 minutes
     - cron: '*/30 * * * *'
-  # Allows you to trigger this manually from the GitHub Actions tab
   workflow_dispatch:
 
 jobs:
@@ -12,37 +10,27 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.11'
-
-      - name: Install requests
-        run: pip install requests -q
-
       - name: Ping PJM Netload Forecasting App
         run: |
-          python3 - <<'EOF'
-          import requests
-          url = "https://pjmrtoanalysis.streamlit.app/"
+          python3 -c "
+          import urllib.request
           try:
-              r = requests.get(url, timeout=60, allow_redirects=True)
-              print(f"✅ PJM Netload App - HTTP Status: {r.status_code}")
+              r = urllib.request.urlopen('https://pjmrtoanalysis.streamlit.app/', timeout=60)
+              print('PJM App Status:', r.status)
           except Exception as e:
-              print(f"⚠️ PJM Netload App - Error: {e}")
-          EOF
+              print('PJM App pinged (waking up):', str(e)[:80])
+          "
 
       - name: Ping Prompt Analysis App
         run: |
-          python3 - <<'EOF'
-          import requests
-          url = "https://promptevaluation.streamlit.app/"
+          python3 -c "
+          import urllib.request
           try:
-              r = requests.get(url, timeout=60, allow_redirects=True)
-              print(f"✅ Prompt Analysis App - HTTP Status: {r.status_code}")
+              r = urllib.request.urlopen('https://promptevaluation.streamlit.app/', timeout=60)
+              print('Prompt App Status:', r.status)
           except Exception as e:
-              print(f"⚠️ Prompt Analysis App - Error: {e}")
-          EOF
+              print('Prompt App pinged (waking up):', str(e)[:80])
+          "
 
       - name: Done
-        run: echo "✅ Both apps pinged at $(date)"
+        run: echo "Both apps pinged at $(date)"
