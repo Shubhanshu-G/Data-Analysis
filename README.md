@@ -3,7 +3,6 @@
 ![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=flat&logo=python&logoColor=white)
 ![Streamlit](https://img.shields.io/badge/Streamlit-Deployed-FF4B4B?style=flat&logo=streamlit&logoColor=white)
 ![Pandas](https://img.shields.io/badge/Pandas-Data%20Analysis-150458?style=flat&logo=pandas&logoColor=white)
-![XGBoost](https://img.shields.io/badge/XGBoost-Forecasting-orange?style=flat)
 ![License](https://img.shields.io/badge/License-MIT-22c55e?style=flat)
 
 A collection of end-to-end data analysis projects — from raw data exploration to deployed interactive dashboards. Each project tackles a real-world problem using Python, machine learning, and Streamlit.
